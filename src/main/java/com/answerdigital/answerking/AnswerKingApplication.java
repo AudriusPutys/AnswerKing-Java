@@ -8,5 +8,6 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 public class AnswerKingApplication {
     public static void main(final String[] args) {
 	SpringApplication.run(AnswerKingApplication.class, args);
+    System.out.println("app started succesfully")
     }
 }
