@@ -30,15 +30,13 @@
 #           aws elasticbeanstalk create-application-version --application-name ans-java-test --version-label my-app-${{ github.sha }} --source-bundle S3Bucket="ans-java",S3Key="answer-king-rest-api-0.0.1.jar"
 #           aws elasticbeanstalk update-environment --application-name ans-java-test --environment-name Ansjavatest-env --version-label my-app-${{ github.sha }}
 
-
-name: deploy-to-eb
+name: Deploy to Elastic Beanstalk
 
 on: [push]
 
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v2
 
@@ -51,17 +49,8 @@ jobs:
 
       - name: Build and package with Maven
         run: mvn package
-      
       - name: Print contents of target directory
         run: ls target
-        
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: "us-east-1"
-
       - name: Upload package to S3 bucket
         run: aws s3 cp target/answer-king-rest-api-0.0.1.jar s3://ans-java/
 
@@ -75,4 +64,52 @@ jobs:
 
       - name: Deploy new ElasticBeanstalk Application Version
         run: aws elasticbeanstalk update-environment --environment-name Ansjavatest-env --version-label "ver-${{ github.sha }}"
+
+
+
+
+# name: deploy-to-eb
+
+# on: [push]
+
+# jobs:
+#   deploy:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       - uses: actions/checkout@v2
+
+#       - name: Set up Amazon Corretto 17
+#         uses: actions/setup-java@v3
+#         with:
+#           java-version: '17'
+#           distribution: 'corretto'
+#           cache: 'maven'
+
+#       - name: Build and package with Maven
+#         run: mvn package
+      
+#       - name: Print contents of target directory
+#         run: ls target
+        
+#       - name: Configure AWS Credentials
+#         uses: aws-actions/configure-aws-credentials@v1
+#         with:
+#           aws-access-key-id: ${{ secrets.ACCESS_KEY_ID }}
+#           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#           aws-region: "us-east-1"
+
+#       - name: Upload package to S3 bucket
+#         run: aws s3 cp target/answer-king-rest-api-0.0.1.jar s3://ans-java/
+
+#       - name: Create new ElasticBeanstalk Application Version
+#         run: |
+#           aws elasticbeanstalk create-application-version \
+#           --application-name ans-java-test \
+#           --source-bundle S3Bucket="ans-java",S3Key="answer-king-rest-api-0.0.1.jar" \
+#           --version-label "ver-${{ github.sha }}" \
+#           --description "commit-sha-${{ github.sha }}"
+
+#       - name: Deploy new ElasticBeanstalk Application Version
+#         run: aws elasticbeanstalk update-environment --environment-name Ansjavatest-env --version-label "ver-${{ github.sha }}"
       
