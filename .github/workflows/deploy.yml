@@ -52,9 +52,17 @@ jobs:
       - name: Print contents of target directory
         run: ls target
       - name: Upload package to S3 bucket
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: us-east-1
         run: aws s3 cp target/answer-king-rest-api-0.0.1.jar s3://ans-java/
 
       - name: Create new ElasticBeanstalk Application Version
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: us-east-1
         run: |
           aws elasticbeanstalk create-application-version \
           --application-name ans-java-test \
@@ -63,6 +71,10 @@ jobs:
           --description "commit-sha-${{ github.sha }}"
 
       - name: Deploy new ElasticBeanstalk Application Version
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: us-east-1
         run: aws elasticbeanstalk update-environment --environment-name Ansjavatest-env --version-label "ver-${{ github.sha }}"
 
 
