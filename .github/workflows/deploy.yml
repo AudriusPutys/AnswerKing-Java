@@ -17,14 +17,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Dump GitHub context
-      env:
-        GITHUB_CONTEXT: ${{ toJson(github) }}
-      run: echo "$GITHUB_CONTEXT"
+      # env:
+      #   GITHUB_CONTEXT: ${{ toJson(github) }}
+      run: |
+        echo github.event.workflow_run.conclusion
+        echo toJson(github)
       
   upload-jar:
     name: Build
     runs-on: ubuntu-latest
-    if: github.workflow_run.status == 'success'
+    if: github.event.workflow_run.conclusion == 'success'
     steps:
       - uses: actions/checkout@v1
       - name: Set up JDK
