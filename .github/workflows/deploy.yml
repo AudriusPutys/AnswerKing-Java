@@ -35,6 +35,8 @@ jobs:
     name: Deploy
     runs-on: ubuntu-latest
     steps:
+      - name: Print contents of target directory
+        run: ls target -lt
       - name: Upload JAR
         uses: actions/upload-artifact@v2
         with:
