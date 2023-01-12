@@ -11,16 +11,7 @@ on:
       - completed
     status:
       - success
-jobs:
-  print-github-env:
-    name: print
-    runs-on: ubuntu-latest
-    steps:
-    - name: Dump GitHub context
-      run: |
-        echo ${{ github.event.workflow_run.conclusion }} &&
-        echo ${{ toJson(github) }}
-      
+jobs:     
   upload-jar:
     name: Build
     runs-on: ubuntu-latest
