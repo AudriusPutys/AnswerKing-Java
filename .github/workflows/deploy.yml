@@ -1,13 +1,21 @@
 name: AP Elastic Beanstalk deployment
 on:
-  workflow_dispatch:
-    inputs:
-      workflow_name: "Integration and code analysis"
+  workflow_run:
+    workflows: ["Integration and code analysis"]
+    branches:
+      - main
+      - master
+      - develop
+      - v1.1.0-preview.3
+    types:
+      - completed
+    status:
+      - success
 jobs:
   upload-jar:
     name: Build
     runs-on: ubuntu-latest
-    if: steps.workflow_dispatch.outputs.status == 'success'
+    if: github.workflow_run.status == 'success'
     steps:
       - uses: actions/checkout@v1
       - name: Set up JDK
