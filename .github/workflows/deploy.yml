@@ -31,7 +31,7 @@ jobs:
         run: aws s3 cp target/answer-king-rest-api-0.0.1.jar s3://ans-java/answer-king-rest-api-0.0.1.jar
 
       - name: Deploy to Elastic Beanstalk
-        run: aws elasticbeanstalk update-environment --environment-name Ansjavatest-env --version-label answer-king-rest-api-0.0.1.jar
+        run: aws elasticbeanstalk update-environment --environment-name Ansjavatest-env --version-label my-app-${{ github.sha }}
 
       # - name: Deploy to Elastic Beanstalk
       #   env:
