@@ -9,6 +9,8 @@ on:
       - v1.1.0-preview.3
     types:
       - completed
+    status:
+      - success
 jobs:
   upload-jar:
     name: Build
