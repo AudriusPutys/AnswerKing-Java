@@ -3,15 +3,6 @@ on:
   workflow_dispatch:
     inputs:
       workflow_name: "Integration and code analysis"
-    branches:
-      - main
-      - master
-      - develop
-      - v1.1.0-preview.3
-    types:
-      - completed
-    status:
-      - success
 jobs:
   upload-jar:
     name: Build
