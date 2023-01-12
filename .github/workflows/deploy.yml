@@ -10,32 +10,37 @@ on:
     types:
       - completed
 jobs:
-  build:
-    name: Build
+  # build:
+  #   name: Build
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v1
+  #     - name: Set up JDK
+  #       uses: actions/setup-java@v3
+  #       with:
+  #         java-version: '17'
+  #         distribution: 'corretto'
+  #         cache: 'maven'
+          
+  #     - name: Build with Maven
+  #       run: mvn -B package -DskipTests --file pom.xml
+  #     - name: Print contents of target directory
+  #       run: ls target -lt
+  #     - name: Upload JAR
+  #       uses: actions/upload-artifact@v2
+  #       with:
+  #         name: artifact
+  #         path: target/answer-king-rest-api-0.0.1.jar  
+  deploy:
+    name: Deploy
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - name: Set up JDK
-        uses: actions/setup-java@v3
-        with:
-          java-version: '17'
-          distribution: 'corretto'
-          cache: 'maven'
-          
-      - name: Build with Maven
-        run: mvn -B package -DskipTests --file pom.xml
-      - name: Print contents of target directory
-        run: ls target -lt
       - name: Upload JAR
         uses: actions/upload-artifact@v2
         with:
           name: artifact
-          path: target/answer-king-rest-api-0.0.1.jar  
-  deploy:
-    needs: build
-    name: Deploy
-    runs-on: ubuntu-latest
-    steps:
+          path: target/answer-king-rest-api-0.0.1.jar
+          
       - name: Download JAR
         uses: actions/download-artifact@v2
         with:
