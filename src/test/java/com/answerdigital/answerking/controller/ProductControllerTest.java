@@ -185,7 +185,7 @@ class ProductControllerTest {
         //then
         actualPerformResult.andExpect(status().isOk());
         final ObjectMapper mapper = new ObjectMapper();
-        assertEquals(mapper.readTree(newProduct).get("name"), mapper.readTree(actualPerformResult.andReturn()
+        assertEquals("fail this shit", mapper.readTree(actualPerformResult.andReturn()
                 .getResponse().getContentAsString()).get("name"));
     }
 }

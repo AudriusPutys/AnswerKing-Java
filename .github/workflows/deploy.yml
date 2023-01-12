@@ -1,4 +1,4 @@
-name: AP Elastic Beanstalk deplot
+name: AP Elastic Beanstalk deployment
 on:
   workflow_run:
     workflows: ["Integration and code analysis"]
