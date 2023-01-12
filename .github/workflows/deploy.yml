@@ -12,6 +12,15 @@ on:
     status:
       - success
 jobs:
+  print-github-env:
+    name: print
+    runs-on: ubuntu-latest
+    steps:
+    - name: Dump GitHub context
+      env:
+        GITHUB_CONTEXT: ${{ toJson(github) }}
+      run: echo "$GITHUB_CONTEXT"
+      
   upload-jar:
     name: Build
     runs-on: ubuntu-latest
