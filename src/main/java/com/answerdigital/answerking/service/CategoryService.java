@@ -205,7 +205,7 @@ public class CategoryService {
      */
     private void validateCategoryNameDoesNotExistWhenCreating(final String categoryName) {
         if (categoryRepository.existsByName(categoryName)) {
-            throw new NameUnavailableException(String.format("A category named '%s' already exists", categoryName));
+            throw new NameUnavailableException(String.format("A category named '%s' already exists test update 1", categoryName));
         }
     }
 
@@ -217,7 +217,7 @@ public class CategoryService {
      */
     private void validateCategoryNameDoesNotExistWhenUpdating(final String categoryName, final Long id) {
         if (categoryRepository.existsByNameAndIdIsNot(categoryName, id)) {
-            throw new NameUnavailableException(String.format("A category named %s already exists", categoryName));
+            throw new NameUnavailableException(String.format("A category named %s already exists test update 2", categoryName));
         }
     }
 
