@@ -40,6 +40,9 @@ jobs:
       - name: Run code coverage check
         run: mvn clean verify
 
+      - name: Print contents of target directory
+        run: ls target
+
       - name: Publish test coverage results
         id: jacoco_reporter
         uses: PavanMudigonda/jacoco-reporter@v4.8
