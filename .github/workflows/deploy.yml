@@ -28,7 +28,7 @@ jobs:
           aws-region: us-east-1
 
       - name: Upload package to S3
-        run: aws s3 cp target/answer-king-rest-api-0.0.1.jar s3://your-bucket-name/answer-king-rest-api-0.0.1.jar
+        run: aws s3 cp target/answer-king-rest-api-0.0.1.jar s3://ans-java/answer-king-rest-api-0.0.1.jar
 
       - name: Deploy to Elastic Beanstalk
         run: aws elasticbeanstalk update-environment --environment-name Ansjavatest-env --version-label answer-king-rest-api-0.0.1.jar
